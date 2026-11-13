@@ -46,6 +46,7 @@ export default defineConfig({
         'docs/troubleshooting',
         'docs/recipes',
         'docs/batch',
+        'docs/speed-editor',
         'docs/cli',
         'docs/api',
         'docs/file-name-template',

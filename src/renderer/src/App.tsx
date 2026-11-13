@@ -21,6 +21,8 @@ import useFfmpegOperations, { maybeMkDeepOutDir, OutputNotWritableError } from '
 import useKeyframes from './hooks/useKeyframes';
 import useWaveform from './hooks/useWaveform';
 import useKeyboard from './hooks/useKeyboard';
+import useSpeedEditor from './speedEditor/useSpeedEditor';
+import { getSpeedEditorLeds } from '../../common/speedEditor';
 import useFileFormatState from './hooks/useFileFormatState';
 import useFrameCapture from './hooks/useFrameCapture';
 import useSegments from './hooks/useSegments';
@@ -2225,6 +2227,26 @@ function App() {
   }, []);
 
   const { keyboardLayoutMap, updateKeyboardLayout } = useKeyboard({ keyBindings, keyUpActions, getKeyboardAction, closeExportConfirm, exportConfirmOpen });
+
+  useSpeedEditor({
+    runAction: (action) => {
+      // like keyboard shortcuts, only allow export while the export confirmation is open
+      if (exportConfirmOpen && action !== 'export') return;
+      getKeyboardAction(action)();
+    },
+    seekFrames: (frames) => seekRel(frames / (detectedFps || 30)),
+    seekRel,
+    seekRelTimeline: seekRelPercent,
+    play: () => play(),
+    pause,
+    isPlaying: () => playingRef.current,
+    setPlaybackRate,
+    resetPlaybackRate: () => setPlaybackRate(outputPlaybackRate),
+    jumpToSegment: (index) => {
+      if (index < cutSegments.length) jumpSeg({ abs: index, seek: true });
+    },
+    leds: getSpeedEditorLeds({ keyframeCut, currentSegIndex: currentSegIndexSafe }),
+  });
 
   useEffect(() => {
     // eslint-disable-next-line unicorn/prefer-add-event-listener
