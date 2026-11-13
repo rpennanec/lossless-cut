@@ -38,6 +38,9 @@ import { checkNewVersion } from './updateChecker.js';
 import * as i18nCommon from './i18nCommon.js';
 import './i18n.js';
 import type { ApiActionRequest, Config } from '../common/types.js';
+import { speedEditorIpcChannels } from '../common/speedEditor.js';
+import type { SpeedEditorCommand } from '../common/speedEditor.js';
+import SpeedEditor from './speedEditor.js';
 import * as ffmpeg from './ffmpeg.js';
 import * as compatPlayer from './compatPlayer.js';
 import { downloadMediaUrl } from './ffmpeg.js';
@@ -373,6 +376,20 @@ async function init() {
     });
 
     ipcMain.on('setLanguage', (_e, newLanguage) => changeLanguage(newLanguage));
+
+    // DaVinci Resolve Speed Editor
+    const speedEditor = SpeedEditor({
+      onInput: (input) => mainWindow?.webContents.send(speedEditorIpcChannels.input, input),
+      onConnected: () => mainWindow?.webContents.send(speedEditorIpcChannels.connected),
+    });
+    ipcMain.on(speedEditorIpcChannels.command, (_e, command: SpeedEditorCommand) => speedEditor.sendCommand(command));
+    ipcMain.on(speedEditorIpcChannels.rendererReady, (e) => {
+      if (speedEditor.isConnected()) e.sender.send(speedEditorIpcChannels.connected);
+    });
+    app.on('will-quit', () => {
+      speedEditor.stop();
+    });
+    speedEditor.start();
 
     ipcMain.handle('tryTrashItem', async (_e, path) => {
       try {

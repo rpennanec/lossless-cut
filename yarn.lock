@@ -9410,6 +9410,7 @@ __metadata:
     morgan: "npm:^1.12.1"
     motion: "npm:^12.40.0"
     nanoid: "npm:^5.1.11"
+    node-hid: "npm:^3.4.0"
     oxlint: "npm:^1.89.0"
     oxlint-tsgolint: "npm:^7.0.2005"
     p-map: "npm:^7.0.4"
@@ -10244,11 +10245,11 @@ __metadata:
   linkType: hard
 
 "node-abi@npm:^4.2.0":
-  version: 4.24.0
-  resolution: "node-abi@npm:4.24.0"
+  version: 4.40.0
+  resolution: "node-abi@npm:4.40.0"
   dependencies:
     semver: "npm:^7.6.3"
-  checksum: 10/08c59e0cb22f08e696bcc47652447cd36501b7893aa07eeb84ab9c354d75ecc70272a455e352bb9ced793290d47976c110986b7c075d5b38eff6de7fd99a651e
+  checksum: 10/9f817a372e494f4062fd11050b7d1c1e2c5bee85384f4f8bbb9229f037de12dc2231202d83be4020c58b21347a07bd54e24b8a91cd055c76937712c2599a30f3
   languageName: node
   linkType: hard
 
@@ -10258,6 +10259,15 @@ __metadata:
   dependencies:
     node-gyp: "npm:latest"
   checksum: 10/ee1e1ed6284a2f8cd1d59ac6175ecbabf8978dcf570345e9a8095a9d0a2b9ced591074ae77f9009287b00c402352b38aa9322a34f2199cdc9f567b842a636b94
+  languageName: node
+  linkType: hard
+
+"node-addon-api@npm:^8.9.0":
+  version: 8.9.2
+  resolution: "node-addon-api@npm:8.9.2"
+  dependencies:
+    node-gyp: "npm:latest"
+  checksum: 10/5354f9b53631d99a952408112d795f36782fd41c0ac073bd91814805fe931b619c743689d0cedcc310c0ae8392fc9b104b2852d28cce294236407ca57d01743e
   languageName: node
   linkType: hard
 
@@ -10307,6 +10317,19 @@ __metadata:
   bin:
     node-gyp: bin/node-gyp.js
   checksum: 10/808fa8e3ccf2528eb5ade4f9b7e9b98cae26e02846d8ec08e4d6b23a2069a3211255e9100648cb5054a98a1343183601b5eb312d61091beeadea35035ecb15ab
+  languageName: node
+  linkType: hard
+
+"node-hid@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "node-hid@npm:3.4.0"
+  dependencies:
+    node-addon-api: "npm:^8.9.0"
+    node-gyp: "npm:latest"
+    pkg-prebuilds: "npm:^1.1.0"
+  bin:
+    hid-showdevices: src/show-devices.js
+  checksum: 10/b2b709316afbf9fd196a5fa963dfa3240f66a15be62476ae59c87b8cede245feb9a22854a2970f5428be8903d679aa200a8ebbd5e26eb41e6ebd93d39d556471
   languageName: node
   linkType: hard
 
@@ -10804,6 +10827,16 @@ __metadata:
   version: 4.0.4
   resolution: "picomatch@npm:4.0.4"
   checksum: 10/f6ef80a3590827ce20378ae110ac78209cc4f74d39236370f1780f957b7ee41c12acde0e4651b90f39983506fd2f5e449994716f516db2e9752924aff8de93ce
+  languageName: node
+  linkType: hard
+
+"pkg-prebuilds@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "pkg-prebuilds@npm:1.1.0"
+  bin:
+    pkg-prebuilds-copy: bin/copy.mjs
+    pkg-prebuilds-verify: bin/verify.mjs
+  checksum: 10/773c2976e58bd96913fb18bd53a8499cd387c2791e371b2a83d1be0ce9b64a2f57a17bfe137664b060fca91cfaf4457483792b39b11ee74e1584fa5137150d48
   languageName: node
   linkType: hard
 

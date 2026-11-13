@@ -84,6 +84,7 @@ Lossless cuts can only start at a keyframe, so a cut starts at the keyframe befo
 - Open many files as a batch list, and go through them one at a time (there's no batch export, but see [Batch processing](batch.md))
 - Convert a whole batch of files to a supported format
 - Keyboard shortcut workflow, with customizable shortcuts
+- Control with a [DaVinci Resolve Speed Editor](speed-editor.md): cut, split and select segments with its keys, and jog, shuttle or scroll with its wheel
 - See the FFmpeg commands that were run, so you can change and re-run them on the command line
 - Basic [CLI](cli.md) and [HTTP API](api.md)
 - Simple and advanced mode, dark and light themes, and 26 languages
