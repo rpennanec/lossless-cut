@@ -2230,9 +2230,11 @@ function App() {
 
   useSpeedEditor({
     runAction: (action) => {
-      // like keyboard shortcuts, only allow export while the export confirmation is open
-      if (exportConfirmOpen && action !== 'export') return;
+      if (exportConfirmOpen) return;
       getKeyboardAction(action)();
+    },
+    exportNow: () => {
+      if (filePath != null) onExportConfirm();
     },
     seekFrames: (frames) => seekRel(frames / (detectedFps || 30)),
     seekRel,

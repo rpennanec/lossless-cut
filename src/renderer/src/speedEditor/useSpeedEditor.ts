@@ -31,12 +31,10 @@ export const speedEditorKeyActions: Partial<Record<SpeedEditorKeyName, KeyboardA
   ESC: 'undo',
   SYNC_BIN: 'redo',
   STOP_PLAY: 'togglePlayResetSpeed',
-  // LIVE O/WR's secondary label is [RND] (render). Like the keyboard shortcut, press once to show the export confirmation, and again to export.
-  LIVE_OWR: 'export',
 };
 
-// Actions that are allowed while a dialog is open (the export confirmation)
-const actionsAllowedInDialog = new Set<KeyboardAction>(['export']);
+// LIVE O/WR's secondary label is [RND] (render): export right away, without the export confirmation
+const exportKey: SpeedEditorKeyName = 'LIVE_OWR';
 
 // CAM1 to CAM9 select (and seek to) segment 1 to 9
 const camKeys: SpeedEditorKeyName[] = ['CAM1', 'CAM2', 'CAM3', 'CAM4', 'CAM5', 'CAM6', 'CAM7', 'CAM8', 'CAM9'];
@@ -59,6 +57,8 @@ const shuttleBackwardsTickMs = 50;
 
 export interface SpeedEditorParams {
   runAction: (action: KeyboardAction) => void,
+  /** export without showing the export confirmation */
+  exportNow: () => void,
   seekFrames: (frames: number) => void,
   seekRel: (seconds: number) => void,
   /** seek by a fraction of the visible timeline */
@@ -158,10 +158,15 @@ function SpeedEditorController(getParams: () => SpeedEditorParams) {
       return;
     }
 
-    const action = speedEditorKeyActions[name];
-    if (isDialogOpen() && (action == null || !actionsAllowedInDialog.has(action))) return;
+    if (isDialogOpen()) return;
 
     const params = getParams();
+
+    // (the export confirmation is not a dialog, so this also exports from there)
+    if (name === exportKey) {
+      params.exportNow();
+      return;
+    }
 
     const camIndex = camKeys.indexOf(name);
     if (camIndex !== -1) {
@@ -176,6 +181,7 @@ function SpeedEditorController(getParams: () => SpeedEditorParams) {
       return;
     }
 
+    const action = speedEditorKeyActions[name];
     if (action != null) params.runAction(action);
   }
 

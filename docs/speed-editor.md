@@ -29,9 +29,9 @@ SUBSYSTEM=="hidraw", ATTRS{idVendor}=="1edb", ATTRS{idProduct}=="da0e", MODE="06
 | <kbd>FULL VIEW</kbd> | Toggle fullscreen video |
 | <kbd>ESC</kbd> / <kbd>SYNC BIN</kbd> | Undo / redo |
 | <kbd>STOP/PLAY</kbd> | Play / pause (and stop shuttling) |
-| <kbd>LIVE O/WR</kbd> | Export (press once to show the export options, and again to export) |
+| <kbd>LIVE O/WR</kbd> | Export right away, without showing the export options |
 
-Like keyboard shortcuts, the keys don't do anything while a dialog is open, except <kbd>LIVE O/WR</kbd> in the export options.
+Like keyboard shortcuts, the keys don't do anything while a dialog is open. <kbd>LIVE O/WR</kbd> also exports from the export options.
 
 ## Wheel
 
